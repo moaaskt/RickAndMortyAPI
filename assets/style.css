@@ -8,38 +8,40 @@ body {
     display: flex;
     flex-direction: column;
     text-align: center;
-    font-family: 'Roboto', sans-serif; 
-    min-height: 100vh; /* Ocupar pelo menos 100% da altura da tela */
-   
-    background: #292D3E ;
+    font-family: 'Roboto', sans-serif;
+    min-height: 100vh;
+
+    background: #292D3E;
 }
-input#searchInput.form-control::placeholder{
+
+input#searchInput.form-control::placeholder {
     color: rgba(243, 243, 243, 0.397);
 
 }
 
 .navbar {
-    
+
     background-color: #343a40;
     padding: 10px;
 }
+
 .btn-search {
-    background-color: #ffb84d; /* Laranja */
-    color: #fff; /* Texto branco */
-    border: 1px solid #ffb84d; /* Borda na cor laranja */
-    border-radius: 4px; /* Borda arredondada */
-    padding: 8px 16px; /* Espaçamento interno */
-    font-size: 16px; /* Tamanho da fonte */
-    cursor: pointer; /* Mostrar cursor de mão ao passar o mouse */
-    transition: background-color 0.3s, color 0.3s; /* Efeito de transição suave */
-  }
-  
-  .btn-search:hover {
-    background-color: #fff; /* Fundo branco ao passar o mouse */
-    color: #ffb84d; /* Texto laranja ao passar o mouse */
-    box-shadow: 0px 4px 8px rgba(255, 184, 77, 0.3); /* Sombra ao passar o mouse */
-  }
-  
+    background-color: #ffb84d;
+    color: #fff;
+    border: 1px solid #ffb84d;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.btn-search:hover {
+    background-color: #fff;
+    color: #ffb84d;
+    box-shadow: 0px 4px 8px rgba(255, 184, 77, 0.3);
+}
+
 
 .navbar-brand {
     color: #FFB84D;
@@ -84,7 +86,7 @@ button.btn-filter {
 }
 
 button.btn-filter.active {
-    background-color:#ffb84d; 
+    background-color: #ffb84d;
     color: black;
 }
 
@@ -94,7 +96,7 @@ button.btn-filter.dead.active {
 }
 
 button.btn-filter.unknown.active {
-    background-color:#ffb84d;
+    background-color: #ffb84d;
     color: rgb(253, 251, 251);
 }
 
@@ -109,15 +111,15 @@ button.btn-filter.unknown.active {
 }
 
 .card {
-    position: relative; 
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     border: none;
     border-radius: 10px;
     overflow: hidden;
-    transition: transform 0.3s, box-shadow 0.3s; 
-    background-color: #FFB84D ;
+    transition: transform 0.3s, box-shadow 0.3s;
+    background-color: #FFB84D;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -125,34 +127,34 @@ button.btn-filter.unknown.active {
 .card::after {
     content: '';
     position: absolute;
-    z-index: -1; 
+    z-index: -1;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.1);
-    transition: opacity 0.1s; 
-    opacity: 0; 
+    transition: opacity 0.1s;
+    opacity: 0;
 }
 
 .card::before {
-    transform: scaleX(2) scaleY(1.5); 
+    transform: scaleX(2) scaleY(1.5);
 }
 
 .card::after {
-    transform: scaleX(1.5) scaleY(2); 
+    transform: scaleX(1.5) scaleY(2);
 }
 
 .card:hover {
     cursor: pointer;
     transform: scale(1.01);
-    box-shadow: 0 6px 20px  rgba(255, 184, 77, 0.5);
+    box-shadow: 0 6px 20px rgba(255, 184, 77, 0.5);
 
 }
 
 .card:hover::before,
 .card:hover::after {
-    opacity: 1; 
+    opacity: 1;
 }
 
 .card-img-top {
@@ -169,7 +171,7 @@ button.btn-filter.unknown.active {
     flex-direction: column;
     justify-content: center;
     padding: 20px;
-    font-family: 'Roboto', sans-serif; /* Aplicar a fonte "Roboto" para as informações do card */
+    font-family: 'Roboto', sans-serif;
 
 }
 
@@ -178,7 +180,7 @@ button.btn-filter.unknown.active {
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 10px;
-    font-family: 'Bangers', cursive; 
+    font-family: 'Bangers', cursive;
 
 }
 
@@ -186,12 +188,12 @@ button.btn-filter.unknown.active {
 .card-text {
     font-size: 16px;
     margin-bottom: 5px;
-    color: #FFFFFF ;
+    color: #FFFFFF;
 }
 
 
 select#page {
-    width: 150px; 
+    width: 150px;
     padding: 8px 12px;
     margin: 30px;
     font-size: 16px;
@@ -204,75 +206,74 @@ select#page {
 }
 
 select#page option[value=""] {
-    display: none; 
+    display: none;
 }
 
 
 .modal-content {
     padding: 20px;
     border-radius: 10px;
-  }
-  
-  .modal-title {
+}
+
+.modal-title {
     font-size: 20px;
     font-weight: bold;
-  }
-  
+}
 
-  .pagination {
+
+.pagination {
     display: flex;
-    justify-content: space-between; /* Alinhar os botões nas extremidades */
-    align-items: center; /* Centralizar verticalmente os botões */
+    justify-content: space-between;
+    align-items: center;
     margin-top: 20px;
-  }
-  
-  /* Estilo para as divisões que contêm os botões */
-  .pagination > div {
-    flex: 1; /* Ocupar espaço igualmente entre os botões */
-  }
-  
-  /* Estilo para o botão de página anterior */
-  #prevPageButton {
-    background-color: #292D3E; /* Laranja */
-    color: #fff; /* Texto branco */
-    border: 1px solid #ffb84d; /* Borda na cor laranja */
-    border-radius: 4px; /* Borda arredondada */
-    padding: 8px 16px; /* Espaçamento interno */
-    font-size: 16px; /* Tamanho da fonte */
-    cursor: pointer; /* Mostrar cursor de mão ao passar o mouse */
-    transition: background-color 0.3s, color 0.3s; /* Efeito de transição suave */
-  }
-  
-  #prevPageButton:hover {
+}
+
+
+.pagination>div {
+    flex: 1;
+}
+
+
+#prevPageButton {
+    background-color: #292D3E;
+    color: #fff;
+    border: 1px solid #ffb84d;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+#prevPageButton:hover {
     background-color: #fff;
     font-weight: bold;
 
     color: black;
-  }
-  
-  
-  /* Estilo para o botão de próxima página */
-  #nextPageButton {
-    background-color: #292D3E; /* Laranja */
-    color: #fff; /* Texto branco */
-    border: 1px solid #ffb84d; /* Borda na cor laranja */
-    border-radius: 4px; /* Borda arredondada */
-    padding: 8px 16px; /* Espaçamento interno */
-    font-size: 16px; /* Tamanho da fonte */
-    cursor: pointer; /* Mostrar cursor de mão ao passar o mouse */
-    transition: background-color 0.3s, color 0.3s; /* Efeito de transição suave */
-  }
-  
-  #nextPageButton:hover {
+}
+
+
+
+#nextPageButton {
+    background-color: #292D3E;
+    color: #fff;
+    border: 1px solid #ffb84d;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+#nextPageButton:hover {
     background-color: #fff;
     color: black;
     font-weight: bold;
-  }
+}
 
-  .footer {
+.footer {
     font-weight: 500;
     color: #fff;
-   padding: 40px;
-    
-  }
-  
+    padding: 40px;
+
+}

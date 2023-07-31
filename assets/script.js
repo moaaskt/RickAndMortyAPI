@@ -60,9 +60,7 @@ nextPageButton.addEventListener("click", () => {
   }
 });
 
-// Restante do seu código...
 
-// Restante do seu código...
 
 
 // funçao para procurar personagem
@@ -85,9 +83,8 @@ const searchCharacter = async () => {
 
   if (data.error) {
     alert("Personagem não encontrado. Tente novamente.");
-    // Limpar o campo de busca
     searchInput.value = "";
-    // Voltar à exibição dos personagens iniciais
+
     apiRick(1);
     return;
   }
@@ -112,23 +109,23 @@ const searchCharacter = async () => {
 
 
 
-  // funçao para filtrar os personagens "vivo,morto ou desconhecido"
-  const filterCharacters = async (status) => {
-    const url = `https://rickandmortyapi.com/api/character/?status=${status}`;
-    const api = await fetch(url);
-    const data = await api.json();
-    console.log(data);
-    divRes = document.querySelector("#resultado");
-    divRes.innerHTML = "";
-  
-    if (data.error) {
-      alert("Nenhum personagem encontrado com esse status.");
-      return;
-    }
-  
-    data.results.forEach((item) => {
-      const divItem = document.createElement("div");
-      divItem.innerHTML = `
+// funçao para filtrar os personagens "vivo,morto ou desconhecido"
+const filterCharacters = async (status) => {
+  const url = `https://rickandmortyapi.com/api/character/?status=${status}`;
+  const api = await fetch(url);
+  const data = await api.json();
+  console.log(data);
+  divRes = document.querySelector("#resultado");
+  divRes.innerHTML = "";
+
+  if (data.error) {
+    alert("Nenhum personagem encontrado com esse status.");
+    return;
+  }
+
+  data.results.forEach((item) => {
+    const divItem = document.createElement("div");
+    divItem.innerHTML = `
         <div class="card" >
           <img src="${item.image}" class="card-img-top" alt="...">
           <div class="card-body">
@@ -139,36 +136,36 @@ const searchCharacter = async () => {
           </div>
         </div>
       `;
-      divItem.addEventListener("click", () => {
-        showCharacterDetails(item.id);
-      }); 
-      divRes.appendChild(divItem);
+    divItem.addEventListener("click", () => {
+      showCharacterDetails(item.id);
     });
-  
-   
-    const filterButtons = document.querySelectorAll(".btn-filter");
-    filterButtons.forEach((button) => {
-      button.classList.remove("active");
-    });
-  
-   
-    const selectedButton = document.querySelector(`.btn-filter.${status.toLowerCase()}`);
-    selectedButton.classList.add("active");
-  };
-  
+    divRes.appendChild(divItem);
+  });
+
+
+  const filterButtons = document.querySelectorAll(".btn-filter");
+  filterButtons.forEach((button) => {
+    button.classList.remove("active");
+  });
+
+
+  const selectedButton = document.querySelector(`.btn-filter.${status.toLowerCase()}`);
+  selectedButton.classList.add("active");
+};
 
 
 
-  // função modal com informaçoes dos personagens
-  const showCharacterDetails = async (characterId) => {
-    try {
-      const response = await fetch(
-        `https://rickandmortyapi.com/api/character/${characterId}`
-      );
-      const characterData = await response.json();
-  
-      // Preencher o conteúdo da modal com as informações do personagem
-      let modalContent = `
+
+// função modal com informaçoes dos personagens
+const showCharacterDetails = async (characterId) => {
+  try {
+    const response = await fetch(
+      `https://rickandmortyapi.com/api/character/${characterId}`
+    );
+    const characterData = await response.json();
+
+
+    let modalContent = `
         <p><b>Nome: </b>${characterData.name}</p>
         <p><b>Status: </b>${characterData.status}</p>
         <p><b>Espécie: </b>${characterData.species}</p>
@@ -176,36 +173,28 @@ const searchCharacter = async () => {
         <p><b>Origem: </b>${characterData.origin.name}</p>
         <p><b>Localização: </b>${characterData.location.name}</p>
       `;
-  
-      // Preencher o conteúdo da modal com as informações do personagem
-      const characterModalBody = document.querySelector("#characterModalBody");
-      characterModalBody.innerHTML = modalContent;
-  
-      // Abrir a modal usando o método show
-      const characterModal = new bootstrap.Modal(document.getElementById("characterModal"));
-      characterModal.show();
-    } catch (error) {
-      console.error("Erro ao obter os detalhes do personagem:", error);
-      window.alert(
-        "Ocorreu um erro ao obter os detalhes do personagem. Tente novamente mais tarde."
-      );
-    }
-  };
-  
-  document.addEventListener("DOMContentLoaded", function () {
-    // Esta função será chamada quando o conteúdo da página for carregado
-  
-    // Chame a função apiRick com a página inicial (1)
-    apiRick(1);
-  });
-  
-  
-  
-  
-  
-  
-  
-  
+
+
+    const characterModalBody = document.querySelector("#characterModalBody");
+    characterModalBody.innerHTML = modalContent;
+
+    // Abrir a modal usando o método show
+    const characterModal = new bootstrap.Modal(document.getElementById("characterModal"));
+    characterModal.show();
+  } catch (error) {
+    console.error("Erro ao obter os detalhes do personagem:", error);
+    window.alert(
+      "Ocorreu um erro ao obter os detalhes do personagem. Tente novamente mais tarde."
+    );
+  }
+};
+
+document.addEventListener("DOMContentLoaded", function () {
+  // Esta função será chamada quando o conteúdo da página for carregado
+
+  // Chame a função apiRick com a página inicial (1)
+  apiRick(1);
+});
 
 
 
