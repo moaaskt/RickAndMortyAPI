@@ -31,15 +31,32 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#"
+              <a class="nav-link active" aria-current="page" href="index.html"
                 >Personagens</a
               >
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="epi.html">Epsodios</a>
+                <div class="input-group mt-2 mt-lg-0">
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Procurar personagem"
+                      id="searchInput"
+                    />
+                    <button
+                      class="btn btn-outline-success"
+                      type="button"
+                      onclick="searchCharacter()"
+                    >
+                      Procurar
+                    </button>
+                  </div>
+
+
+              <!-- <a class="nav-link" href="epi.html">Epsodios</a> -->
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="loc.html">Locaçoes</a>
+              <!-- <a class="nav-link" href="loc.html">Locaçoes</a> -->
             </li>
           </ul>
         </div>
