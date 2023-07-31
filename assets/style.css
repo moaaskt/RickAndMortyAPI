@@ -11,6 +11,10 @@ body {
     margin: 30px;
     background: #292D3E ;
 }
+input#searchInput.form-control::placeholder{
+    color: rgba(243, 243, 243, 0.397);
+
+}
 
 .navbar {
     background-color: #343a40;
@@ -136,8 +140,10 @@ button.btn-filter.unknown.active {
 }
 
 .card:hover {
+    cursor: pointer;
     transform: scale(1.01);
     box-shadow: 0 6px 20px  rgba(255, 184, 77, 0.5);
+
 }
 
 .card:hover::before,
@@ -198,3 +204,63 @@ select#page option[value=""] {
 }
 
 
+.modal-content {
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  .modal-title {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+
+  .pagination {
+    display: flex;
+    justify-content: space-between; /* Alinhar os botões nas extremidades */
+    align-items: center; /* Centralizar verticalmente os botões */
+    margin-top: 20px;
+  }
+  
+  /* Estilo para as divisões que contêm os botões */
+  .pagination > div {
+    flex: 1; /* Ocupar espaço igualmente entre os botões */
+  }
+  
+  /* Estilo para o botão de página anterior */
+  #prevPageButton {
+    background-color: #292D3E; /* Laranja */
+    color: #fff; /* Texto branco */
+    border: 1px solid #ffb84d; /* Borda na cor laranja */
+    border-radius: 4px; /* Borda arredondada */
+    padding: 8px 16px; /* Espaçamento interno */
+    font-size: 16px; /* Tamanho da fonte */
+    cursor: pointer; /* Mostrar cursor de mão ao passar o mouse */
+    transition: background-color 0.3s, color 0.3s; /* Efeito de transição suave */
+  }
+  
+  #prevPageButton:hover {
+    background-color: #fff;
+    font-weight: bold;
+
+    color: black;
+  }
+  
+  
+  /* Estilo para o botão de próxima página */
+  #nextPageButton {
+    background-color: #292D3E; /* Laranja */
+    color: #fff; /* Texto branco */
+    border: 1px solid #ffb84d; /* Borda na cor laranja */
+    border-radius: 4px; /* Borda arredondada */
+    padding: 8px 16px; /* Espaçamento interno */
+    font-size: 16px; /* Tamanho da fonte */
+    cursor: pointer; /* Mostrar cursor de mão ao passar o mouse */
+    transition: background-color 0.3s, color 0.3s; /* Efeito de transição suave */
+  }
+  
+  #nextPageButton:hover {
+    background-color: #fff;
+    color: black;
+    font-weight: bold;
+  }
