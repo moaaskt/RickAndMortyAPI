@@ -1,5 +1,5 @@
 # Rick and Morty API
-
+<img src="http://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=GREEN&style=for-the-badge"/>
 
 
 > Esta é uma API que fornece informações sobre os personagens, episódios e locais da famosa série animada "Rick and Morty".
