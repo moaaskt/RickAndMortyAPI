@@ -6,76 +6,86 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>The Rick and Morty API</title>
     <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
-      crossorigin="anonymous"
-    />
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    crossorigin="anonymous"
+  />
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Roboto&display=swap" rel="stylesheet">
+
+
     <link rel="stylesheet" href="assets/style.css" />
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-      <div class="container-fluid">
-        <h1 class="navbar-brand">The rick and morty API</h1>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+          <a class="navbar-brand" href="index.html">The Rick and Morty API</a>
           <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="index.html"
-                >Personagens</a
-              >
-            </li>
-            <li class="nav-item">
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <button class="btn btn-outline-secondary btn-filter alive " onclick="filterCharacters('Alive')">Vivos</button>
+              </li>
+              <li class="nav-item">
+                <button class="btn btn-outline-secondary btn-filter dead" onclick="filterCharacters('Dead')">Mortos</button>
+              </li>
+              <li class="nav-item">
+                <button class="btn btn-outline-secondary btn-filter unknown" onclick="filterCharacters('unknown')">Desconhecido</button>
+              </li>
+              <li class="nav-item">
                 <div class="input-group mt-2 mt-lg-0">
-                    <input
-                      type="text"
-                      class="form-control"
-                      placeholder="Procurar personagem"
-                      id="searchInput"
-                    />
-                    <button
-                      class="btn btn-outline-success"
-                      type="button"
-                      onclick="searchCharacter()"
-                    >
-                      Procurar
-                    </button>
-                  </div>
-
-
-              <!-- <a class="nav-link" href="epi.html">Epsodios</a> -->
-            </li>
-            <li class="nav-item">
-              <!-- <a class="nav-link" href="loc.html">Locaçoes</a> -->
-            </li>
-          </ul>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Procurar personagem"
+                    id="searchInput"
+                  />
+                  <button class="btn btn-search" type="button" onclick="searchCharacter()">
+                    Procurar
+                  </button>
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
-    </nav>
-    <h1>Page
-    <select name="page" id="page" onchange="apiRick(this.value)">
+      </nav>
+      <div id="resultado">
+          
+          
+    </div>
+    
+    <select name="page" id="page" onchange="apiRick(this.value) ">
+        <option value="">Escolher página:</option>
       <script>
         for (let i = 1; i <= 42; i++) {
           document.write(`<option value="${i}">${i}</option>`);
         }
       </script> 
-    </select></h1>
-    <div id="resultado">
+    </select>
 
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
 
-    </div>
-
-
-    <script src="assets/script.js"></script>
+      $(document).ready(function() {
+        $("#page").select2({
+          theme: "bootstrap" 
+        });
+      });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
+    <script src="assets/script.js"></script
   </body>
 </html>
