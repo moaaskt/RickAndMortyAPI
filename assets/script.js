@@ -1,3 +1,5 @@
+
+
 // Variável para guardar o número total de páginas
 let totalPages = 1;
 let currentPage = 1;
@@ -156,7 +158,7 @@ const filterCharacters = async (status) => {
 
 
 
-// função modal com informaçoes dos personagens
+// função modal com informações dos personagens
 const showCharacterDetails = async (characterId) => {
   try {
     const response = await fetch(
@@ -164,23 +166,29 @@ const showCharacterDetails = async (characterId) => {
     );
     const characterData = await response.json();
 
-
     let modalContent = `
-        <p><b>Nome: </b>${characterData.name}</p>
-        <p><b>Status: </b>${characterData.status}</p>
-        <p><b>Espécie: </b>${characterData.species}</p>
-        <p><b>Gênero: </b>${characterData.gender}</p>
-        <p><b>Origem: </b>${characterData.origin.name}</p>
-        <p><b>Localização: </b>${characterData.location.name}</p>
-      `;
-
+      <p><b>Nome: </b>${characterData.name}</p>
+      <p><b>Status: </b>${characterData.status}</p>
+      <p><b>Espécie: </b>${characterData.species}</p>
+      <p><b>Gênero: </b>${characterData.gender}</p>
+      <p><b>Origem: </b>${characterData.origin.name}</p>
+      <p><b>Localização: </b>${characterData.location.name}</p>
+    `;
 
     const characterModalBody = document.querySelector("#characterModalBody");
     characterModalBody.innerHTML = modalContent;
 
-    // Abrir a modal usando o método show
-    const characterModal = new bootstrap.Modal(document.getElementById("characterModal"));
+    const characterModalElement = document.getElementById("characterModal");
+    characterModalElement.classList.add("animate__bounce", "animate__bounce");
+
+
+    const characterModal = new bootstrap.Modal(characterModalElement);
     characterModal.show();
+
+    // Remover a classe animate__flipInY ao fechar o modal
+    characterModalElement.addEventListener("hidden.bs.modal", () => {
+      characterModalElement.classList.remove("animate__bounce");
+    });
   } catch (error) {
     console.error("Erro ao obter os detalhes do personagem:", error);
     window.alert(
@@ -188,6 +196,7 @@ const showCharacterDetails = async (characterId) => {
     );
   }
 };
+
 
 document.addEventListener("DOMContentLoaded", function () {
   // Esta função será chamada quando o conteúdo da página for carregado
