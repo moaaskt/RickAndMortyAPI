@@ -40,24 +40,24 @@
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
               <li class="nav-item">
-                <button class="btn btn-outline-secondary btn-filter alive" onclick="filterCharacters('Alive')" title="Filtrar somente por vivos">Vivos</button>
-              </li>
-              <li class="nav-item">
-                <button class="btn btn-outline-secondary btn-filter dead" onclick="filterCharacters('Dead')" title="Filtrar somente por Mortos">Mortos</button>
-              </li>
-              <li class="nav-item">
-                <button class="btn btn-outline-secondary btn-filter unknown" onclick="filterCharacters('unknown')" title="Filtrar somente por Desconhecidos">Desconhecidos</button>
-              </li>
+                         <div class="custom-select-wrapper">
+                <select class="custom-select" onchange="filterCharacters(this.value)">
+                  <option value="#">Filtrar por status</option>
+                  <option value="alive">Vivos</option>
+                  <option value="dead">Mortos</option>
+                  <option value="unknown">Desconhecido</option>
+                </select>
+          
+              </div>
               <li class="nav-item">
                 <div class="input-group mt-2 mt-lg-0">
                   <input
                   type="text"
                   class="form-control"
                   placeholder="Procurar personagem"
-                  style="color: #fff"
                   id="searchInput"
-                  
                 />
+                <div class="custom-input-icon"></div>
                   <button class="btn btn-search" type="button" onclick="searchCharacter()">
                     <i class="fa-solid fa-magnifying-glass" style="color: rgb(8, 8, 8);"></i>
                   </button>
