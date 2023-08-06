@@ -67,47 +67,55 @@ nextPageButton.addEventListener("click", () => {
 
 // funçao para procurar personagem
 
-const searchCharacter = async () => {
+const realTimeSearch = async () => {
   const searchInput = document.querySelector("#searchInput");
   const characterName = searchInput.value.trim();
 
+  // Verifica se o campo de pesquisa está vazio
   if (characterName === "") {
-    alert("Por favor, digite o nome de um personagem.");
+    apiRick(1); // Volta a exibir todos os personagens caso o campo esteja vazio
     return;
   }
 
-  const url = `https://rickandmortyapi.com/api/character/?name=${characterName}`;
-  const api = await fetch(url);
-  const data = await api.json();
-  console.log(data);
-  divRes = document.querySelector("#resultado");
-  divRes.innerHTML = "";
+  try {
+    const url = `https://rickandmortyapi.com/api/character/?name=${characterName}`;
+    const api = await fetch(url);
+    const data = await api.json();
 
-  if (data.error) {
-    alert("Personagem não encontrado. Tente novamente.");
-    searchInput.value = "";
+    divRes = document.querySelector("#resultado");
+    divRes.innerHTML = "";
 
-    apiRick(1);
-    return;
+    if (data.results && data.results.length > 0) {
+      // Verifica se há resultados na busca
+      data.results.forEach((item) => {
+        const divItem = document.createElement("div");
+        divItem.innerHTML = `
+          <div class="card">
+            <img src="${item.image}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">${item.name}</h5>
+              <p class="card-text"><b>Status: </b>${item.status}</p>
+              <p class="card-text"><b>Espécie: </b>${item.species}</p>
+              <p class="card-text"><b>Gênero: </b>${item.gender}</p>
+            </div>
+          </div>
+        `;
+
+        divItem.addEventListener("click", () => {
+          showCharacterDetails(item.id);
+        });
+
+        divRes.appendChild(divItem);
+      });
+    } else {
+      // Caso nenhum personagem seja encontrado, exibe a mensagem na página
+      divRes.innerHTML = "<p class='not-found-message'>Nenhum personagem encontrado.</p>";
+    }
+  } catch (error) {
+    console.error("Erro ao buscar personagens:", error);
   }
-
-  data.results.forEach((item) => {
-    const divItem = document.createElement("div");
-    divItem.innerHTML = `
-      <div class="card" >
-        <img src="${item.image}" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">${item.name}</h5>
-          <p class="card-text"><b>Status: </b>${item.status}</p>
-          <p class="card-text"><b>Espécie: </b>${item.species}</p>
-          <p class="card-text"><b>Genero: </b>${item.gender}</p>
-        </div>
-      </div>
-    `;
-
-    divRes.appendChild(divItem);
-  });
 };
+
 
 
 
