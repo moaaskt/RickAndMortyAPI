@@ -350,4 +350,27 @@ select#page option[value=""] {
     font-family: "Font Awesome 5 Free";
     font-weight: 900;
   }
+  /* Estilos para os botões de favorito */
+.favorite-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 2;
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50% !important;
+  }
   
+  .card {
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  
+  .card:hover {
+    transform: scale(1.03);
+  }
