@@ -306,7 +306,17 @@ const realTimeSearch = async () => {
   }
 };
 
-// (Mantenha as outras funções filterCharacters e showCharacterDetails como estão, apenas adicionando o botão de favoritos)
+// Atualiza contador de favoritos
+function updateFavoritesCounter() {
+  const favorites = JSON.parse(localStorage.getItem('rickAndMortyFavorites')) || [];
+  const counter = document.getElementById('favorites-count');
+  if (counter) {
+    counter.textContent = favorites.length;
+  }
+}
+
+// Chame esta função sempre que modificar os favoritos
+updateFavoritesCounter();
 
 // Inicialização
 document.addEventListener("DOMContentLoaded", function () {

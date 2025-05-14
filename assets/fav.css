@@ -1,0 +1,39 @@
+/* ESTILOS ESPECÍFICOS PARA FAVORITOS */
+.favorites-page {
+    background: url('../imgs/portal-bg.jpg') no-repeat center center fixed;
+    background-size: cover;
+    min-height: 100vh;
+    padding-bottom: 50px;
+  }
+  
+  .portal-icon {
+    color: #42b4ca;
+    display: inline-block;
+    animation: spin 4s linear infinite;
+  }
+  
+  @keyframes spin {
+    100% { transform: rotate(360deg); }
+  }
+  
+  .favorites-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    padding: 20px;
+  }
+  
+  .favorite-card {
+    background: rgba(26, 26, 26, 0.9);
+    border: 3px solid #42b4ca;
+    border-radius: 15px;
+    overflow: hidden;
+    transition: all 0.3s;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+  }
+  
+  .favorite-card:hover {
+    transform: scale(1.05);
+    border-color: #f0f;
+    box-shadow: 0 10px 25px rgba(66, 180, 202, 0.7);
+  }
