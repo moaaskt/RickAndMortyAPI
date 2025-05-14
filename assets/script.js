@@ -23,13 +23,13 @@ function isFavorite(id) {
 function toggleFavorite(id, element) {
   let favorites = loadFavorites();
   if (favorites.includes(id)) {
-    favorites = favorites.filter(favId => favId !== id);
-    element.classList.replace('btn-danger', 'btn-warning');
-    element.innerHTML = '❤️';
+    favorites = favorites.filter((favId) => favId !== id);
+    element.classList.replace("btn-danger", "btn-warning");
+    element.innerHTML = "❤️";
   } else {
     favorites.push(id);
-    element.classList.replace('btn-warning', 'btn-danger');
-    element.innerHTML = '★';
+    element.classList.replace("btn-warning", "btn-danger");
+    element.innerHTML = "★";
   }
   saveFavorites(favorites);
 }
@@ -37,41 +37,74 @@ function toggleFavorite(id, element) {
 // Função para mostrar favoritos
 function showFavorites() {
   const favorites = loadFavorites();
+  divRes.innerHTML = `
+    <section class="favorites-section">
+      <h2 class="favorites-title">SEUS FAVORITOS</h2>
+      <div class="favorites-grid" id="favoritesGrid"></div>
+    </section>
+  `;
+
+  const grid = document.getElementById("favoritesGrid");
+
   if (favorites.length === 0) {
-    alert("Você não tem personagens favoritos ainda!");
+    grid.innerHTML = `
+      <div class="empty-favorites">
+        <p>Nenhum personagem favoritado ainda!</p>
+        <img src="https://i.imgur.com/J5ZQZ9q.png" alt="Portal vazio" width="150">
+      </div>
+    `;
     return;
   }
+  divRes.innerHTML = `
+    <h2 class="text-center my-4">⭐ Seus Favoritos</h2>
+    <div class="favorites-container"></div>
+  `;
 
-  divRes = document.querySelector("#resultado");
-  divRes.innerHTML = '<h2 class="text-center my-4">⭐ Seus Favoritos</h2>';
-
+  const container = divRes.querySelector(".favorites-container");
   // Busca cada personagem favoritado
-  favorites.forEach(id => {
+  favorites.forEach((id) => {
     fetch(`https://rickandmortyapi.com/api/character/${id}`)
-      .then(res => res.json())
-      .then(character => {
-        const divItem = document.createElement("div");
-        divItem.classList.add("card");
-        divItem.innerHTML = `
-          <img src="${character.image}" class="card-img-top" alt="...">
-          <div class="card-body">
-            <button class="btn btn-sm btn-danger favorite-btn" data-id="${character.id}">
-              ★
+      .then((res) => res.json())
+      .then((character) => {
+        const card = document.createElement("div");
+        card.className = "favorite-card";
+        card.innerHTML = `
+        <img src="${character.image}" class="favorite-card-img" alt="${character.name}">
+          <div class="favorite-card-body">
+            <h3 class="favorite-card-name">${character.name}</h3>
+            <p class="favorite-card-info"><b>Status: </b>${character.status}</p>
+            <p class="favorite-card-info"><b>Espécie: </b>${character.species}</p>
+            <p class="favorite-card-info"><b>Gênero: </b>${character.gender}</p>
+            <button class="btn-remove" data-id="${character.id}">
+              Remover dos Favoritos
             </button>
-            <h5 class="card-title">${character.name}</h5>
-            <p class="card-text"><b>Status: </b>${character.status}</p>
-            <p class="card-text"><b>Espécie: </b>${character.species}</p>
-            <p class="card-text"><b>Gênero: </b>${character.gender}</p>
           </div>
         `;
         
+      card.querySelector('.btn-remove').addEventListener('click', (e) => {
+          e.stopPropagation();
+          toggleFavorite(character.id, card.querySelector('.btn-remove'));
+          card.remove();
+          if (document.querySelectorAll('.favorite-card').length === 0) {
+            grid.innerHTML = `
+              <div class="empty-favorites">
+                <p>Nenhum personagem favoritado ainda!</p>
+                <img src="https://i.imgur.com/J5ZQZ9q.png" alt="Portal vazio" width="150">
+              </div>
+            `;
+          }
+        });
+        
+        grid.appendChild(card);
+
+        container.appendChild(card);
         divItem.addEventListener("click", () => {
           showCharacterDetails(character.id);
         });
-        
+
         divRes.appendChild(divItem);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(`Erro ao cargar personagem ${id}:`, error);
       });
   });
@@ -84,18 +117,20 @@ const apiRick = async (page) => {
     let url = `https://rickandmortyapi.com/api/character/?page=${page}`;
     const api = await fetch(url);
     const data = await api.json();
-    
+
     divRes = document.querySelector("#resultado");
     divRes.innerHTML = "";
-    
+
     data.results.forEach((item) => {
       const divItem = document.createElement("div");
       divItem.classList.add("card");
       divItem.innerHTML = `
         <img src="${item.image}" class="card-img-top" alt="...">
         <div class="card-body">
-          <button class="btn btn-sm ${isFavorite(item.id) ? 'btn-danger' : 'btn-outline-warning'} favorite-btn" data-id="${item.id}">
-            ${isFavorite(item.id) ? '★' : '❤️'}
+          <button class="btn btn-sm ${
+            isFavorite(item.id) ? "btn-danger" : "btn-outline-warning"
+          } favorite-btn" data-id="${item.id}">
+            ${isFavorite(item.id) ? "★" : "❤️"}
           </button>
           <h5 class="card-title">${item.name}</h5>
           <p class="card-text"><b>Status: </b>${item.status}</p>
@@ -103,21 +138,21 @@ const apiRick = async (page) => {
           <p class="card-text"><b>Gênero: </b>${item.gender}</p>
         </div>
       `;
-      
+
       // Evento de clique no card
       divItem.addEventListener("click", (e) => {
-        if (!e.target.classList.contains('favorite-btn')) {
+        if (!e.target.classList.contains("favorite-btn")) {
           showCharacterDetails(item.id);
         }
       });
-      
+
       // Evento de clique no botão de favorito
-      const favBtn = divItem.querySelector('.favorite-btn');
-      favBtn.addEventListener('click', (e) => {
+      const favBtn = divItem.querySelector(".favorite-btn");
+      favBtn.addEventListener("click", (e) => {
         e.stopPropagation();
         toggleFavorite(item.id, favBtn);
       });
-      
+
       divRes.appendChild(divItem);
     });
 
@@ -125,10 +160,11 @@ const apiRick = async (page) => {
     totalPages = data.info.pages;
     currentPage = page;
     updatePaginationButtons();
-    
   } catch (error) {
     console.error("Erro ao obter os personagens:", error);
-    window.alert("Ocorreu um erro ao obter os personagens. Tente novamente mais tarde.");
+    window.alert(
+      "Ocorreu um erro ao obter os personagens. Tente novamente mais tarde."
+    );
   }
 };
 
@@ -139,6 +175,58 @@ function updatePaginationButtons() {
   prevPageButton.disabled = currentPage === 1;
   nextPageButton.disabled = currentPage === totalPages;
 }
+
+// ==================== FUNÇÃO DO MODAL ====================
+const showCharacterDetails = async (characterId) => {
+  try {
+    const response = await fetch(
+      `https://rickandmortyapi.com/api/character/${characterId}`
+    );
+    const characterData = await response.json();
+
+    let modalContent = `
+      <div class="row">
+        <div class="col-md-4">
+          <img src="${
+            characterData.image
+          }" class="img-fluid rounded mb-3" alt="${characterData.name}">
+        </div>
+        <div class="col-md-8">
+          <p><b>Nome: </b>${characterData.name}</p>
+          <p><b>Status: </b>${characterData.status}</p>
+          <p><b>Espécie: </b>${characterData.species}</p>
+          <p><b>Gênero: </b>${characterData.gender}</p>
+          <p><b>Origem: </b>${characterData.origin.name}</p>
+          <p><b>Localização: </b>${characterData.location.name}</p>
+          ${
+            characterData.type
+              ? `<p><b>Tipo: </b>${characterData.type}</p>`
+              : ""
+          }
+        </div>
+      </div>
+    `;
+
+    const characterModalBody = document.querySelector("#characterModalBody");
+    characterModalBody.innerHTML = modalContent;
+
+    const characterModalElement = document.getElementById("characterModal");
+    characterModalElement.classList.add("animate__bounce");
+
+    const characterModal = new bootstrap.Modal(characterModalElement);
+    characterModal.show();
+
+    // Remover a classe animate__bounce ao fechar o modal
+    characterModalElement.addEventListener("hidden.bs.modal", () => {
+      characterModalElement.classList.remove("animate__bounce");
+    });
+  } catch (error) {
+    console.error("Erro ao obter os detalhes do personagem:", error);
+    window.alert(
+      "Ocorreu um erro ao obter os detalhes do personagem. Tente novamente mais tarde."
+    );
+  }
+};
 
 // ==================== EVENT LISTENERS ====================
 // Paginação
@@ -182,8 +270,10 @@ const realTimeSearch = async () => {
           <div class="card">
             <img src="${item.image}" class="card-img-top" alt="...">
             <div class="card-body">
-              <button class="btn btn-sm ${isFavorite(item.id) ? 'btn-danger' : 'btn-outline-warning'} favorite-btn" data-id="${item.id}">
-                ${isFavorite(item.id) ? '★' : '❤️'}
+              <button class="btn btn-sm ${
+                isFavorite(item.id) ? "btn-danger" : "btn-outline-warning"
+              } favorite-btn" data-id="${item.id}">
+                ${isFavorite(item.id) ? "★" : "❤️"}
               </button>
               <h5 class="card-title">${item.name}</h5>
               <p class="card-text"><b>Status: </b>${item.status}</p>
@@ -194,13 +284,13 @@ const realTimeSearch = async () => {
         `;
 
         divItem.addEventListener("click", (e) => {
-          if (!e.target.classList.contains('favorite-btn')) {
+          if (!e.target.classList.contains("favorite-btn")) {
             showCharacterDetails(item.id);
           }
         });
 
-        const favBtn = divItem.querySelector('.favorite-btn');
-        favBtn.addEventListener('click', (e) => {
+        const favBtn = divItem.querySelector(".favorite-btn");
+        favBtn.addEventListener("click", (e) => {
           e.stopPropagation();
           toggleFavorite(item.id, favBtn);
         });
@@ -208,7 +298,8 @@ const realTimeSearch = async () => {
         divRes.appendChild(divItem);
       });
     } else {
-      divRes.innerHTML = "<p class='not-found-message'>Nenhum personagem encontrado.</p>";
+      divRes.innerHTML =
+        "<p class='not-found-message'>Nenhum personagem encontrado.</p>";
     }
   } catch (error) {
     console.error("Erro ao buscar personagens:", error);
